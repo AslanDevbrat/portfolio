@@ -161,7 +161,7 @@ function App() {
               transition={{ duration: 1, delay: 0.2 }}
               className="hero-image-wrapper"
             >
-              <img src="/profile pic.png" alt="Devbrat Anuragi" className="profile-img" />
+              <img src={`${import.meta.env.BASE_URL}profile-pic.png`} alt="Devbrat Anuragi" className="profile-img" />
               <div className="image-accent"></div>
             </motion.div>
           </div>
@@ -403,7 +403,7 @@ function App() {
             <div className="link-grid">
               <a href="mailto:devbrat9156@gmail.com"><Mail /> Email</a>
               <a href="https://linkedin.com/in/devbrat-anuragi"><Linkedin /> LinkedIn</a>
-              <a href="/Devbrat_CV (1).pdf" download className="btn-primary" style={{ cursor: 'pointer' }}>
+              <a href={`${import.meta.env.BASE_URL}Devbrat_CV (1).pdf`} download className="btn-primary" style={{ cursor: 'pointer' }}>
                 <FileText /> Download Full CV (PDF)
               </a>
             </div>
