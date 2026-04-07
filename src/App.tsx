@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import Lenis from '@studio-freight/lenis';
 import { motion, useScroll, useSpring } from 'framer-motion';
-import { Mail, ArrowRight, Video, FileText, Award, ExternalLink, Linkedin, Github, GraduationCap, MapPin, Calendar, Camera } from 'lucide-react';
+import { Mail, FileText, Award, ExternalLink, Linkedin, GraduationCap, MapPin, Calendar, Camera } from 'lucide-react';
 import './index.css';
 
 // --- Components ---
