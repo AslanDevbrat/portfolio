@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://aslandevbrat.github.io/devbrat-anuragi/sitemap.xml
