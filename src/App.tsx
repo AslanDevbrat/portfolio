@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Lenis from '@studio-freight/lenis';
 import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion';
-import { Mail, Award, ExternalLink, GraduationCap, MapPin, Calendar, Camera, Globe, Download } from 'lucide-react';
+import { Mail, ExternalLink, GraduationCap, MapPin, Calendar, Camera, Globe } from 'lucide-react';
 import './index.css';
 
 // --- Components ---
@@ -241,7 +241,7 @@ function App() {
               </div>
               <div style={{ marginTop: '2rem' }}>
                 <a href={`${import.meta.env.BASE_URL}Devbrat_CV.pdf`} target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ padding: '0.8rem 1.8rem', fontSize: '0.95rem' }}>
-                  <Download size={18} /> Download CV
+                  Download CV
                 </a>
               </div>
             </motion.div>
