@@ -1,10 +1,32 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Lenis from '@studio-freight/lenis';
-import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion';
-import { Mail, ExternalLink, GraduationCap, MapPin, Calendar, Camera, Globe } from 'lucide-react';
+import { motion, useScroll, useSpring, AnimatePresence, useInView, animate } from 'framer-motion';
+import { Mail, ExternalLink, GraduationCap, MapPin, Calendar, Camera, Globe, Menu, X } from 'lucide-react';
 import './index.css';
 
 // --- Components ---
+
+function AnimatedCounter({ from, to, suffix = "" }: { from: number, to: number, suffix?: string }) {
+  const nodeRef = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(nodeRef, { once: true, amount: 0.5 });
+  
+  useEffect(() => {
+    if (isInView && nodeRef.current) {
+      const controls = animate(from, to, {
+        duration: 2.5,
+        ease: "easeOut",
+        onUpdate(value) {
+          if (nodeRef.current) {
+            nodeRef.current.textContent = Math.round(value).toString() + suffix;
+          }
+        }
+      });
+      return () => controls.stop();
+    }
+  }, [from, to, suffix, isInView]);
+
+  return <span ref={nodeRef}>{from}{suffix}</span>;
+}
 
 function SectionHeading({ title }: { title: string }) {
   return (
@@ -143,6 +165,7 @@ function ConferenceCard({ title, location, date, image }: { title: string, locat
 // --- App ---
 
 function App() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -174,17 +197,21 @@ function App() {
 
       <nav className="nav-minimal">
         <div className="logo serif">DA.</div>
-        <div className="nav-links">
-          <a href="#about">About</a>
-          <a href="#awards">Awards</a>
-          <a href="#research">Research</a>
+        
+        <button className="menu-toggle" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+          {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+        </button>
 
-          <a href="#conferences">Conferences</a>
-          <a href="#experience">Experience</a>
-          <a href="#projects">Projects</a>
-          <a href="#writings">Writings</a>
-          <a href="#featured-posts">Posts</a>
-          <a href="#contact">Contact</a>
+        <div className={`nav-links ${isMobileMenuOpen ? 'open' : ''}`}>
+          <a href="#about" onClick={() => setIsMobileMenuOpen(false)}>About</a>
+          <a href="#awards" onClick={() => setIsMobileMenuOpen(false)}>Awards</a>
+          <a href="#research" onClick={() => setIsMobileMenuOpen(false)}>Research</a>
+          <a href="#conferences" onClick={() => setIsMobileMenuOpen(false)}>Conferences</a>
+          <a href="#experience" onClick={() => setIsMobileMenuOpen(false)}>Experience</a>
+          <a href="#projects" onClick={() => setIsMobileMenuOpen(false)}>Projects</a>
+          <a href="#writings" onClick={() => setIsMobileMenuOpen(false)}>Writings</a>
+          <a href="#featured-posts" onClick={() => setIsMobileMenuOpen(false)}>Posts</a>
+          <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>Contact</a>
         </div>
       </nav>
 
@@ -243,6 +270,21 @@ function App() {
                 <a href={`${import.meta.env.BASE_URL}Devbrat_CV.pdf`} target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ padding: '0.8rem 1.8rem', fontSize: '0.95rem' }}>
                   Download CV
                 </a>
+              </div>
+
+              <div className="stats-grid hero-stats">
+                <div className="stat-item hero-stat-item">
+                  <h2 className="serif stat-number" style={{ fontSize: '3.5rem' }}><AnimatedCounter from={0} to={9} suffix="+" /></h2>
+                  <p className="stat-label" style={{ fontSize: '0.85rem' }}>Publications</p>
+                </div>
+                <div className="stat-item hero-stat-item">
+                  <h2 className="serif stat-number" style={{ fontSize: '3.5rem' }}><AnimatedCounter from={0} to={9} suffix="+" /></h2>
+                  <p className="stat-label" style={{ fontSize: '0.85rem' }}>Patents</p>
+                </div>
+                <div className="stat-item hero-stat-item">
+                  <h2 className="serif stat-number" style={{ fontSize: '3.5rem' }}><AnimatedCounter from={0} to={3} suffix="+" /></h2>
+                  <p className="stat-label" style={{ fontSize: '0.85rem' }}>Projects</p>
+                </div>
               </div>
             </motion.div>
             <motion.div
@@ -411,6 +453,7 @@ function App() {
         <section id="conferences" className="section">
           <SectionHeading title="Conferences & Travels" />
           <div className="conference-grid">
+            <ConferenceCard title="CHI 2026" location="Barcelona, Spain" date="May 2026" image={`${import.meta.env.BASE_URL}Pictures/chi2026.jpg`} />
             <ConferenceCard title="Augmented Humans 2026" location="Okinawa, Japan" date="Feb 2026" image={`${import.meta.env.BASE_URL}Pictures/Augmented Huaman 2026.jpg`} />
             <ConferenceCard title="CES 2026" location="Las Vegas, USA" date="Jan 2026" image={`${import.meta.env.BASE_URL}Pictures/CES 2026.jpg`} />
             <ConferenceCard title="IEEE World Haptics 2025" location="Suwon, South Korea" date="July 2025" image={`${import.meta.env.BASE_URL}Pictures/IEEE world Haptics.jpg`} />
