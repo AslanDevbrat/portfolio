@@ -47,10 +47,13 @@ interface ListEntryProps {
   date?: string;
   description?: string[];
   link?: string;
+  presentation?: string;
+  poster?: string;
+  code?: string;
   image?: string;
 }
 
-function ListEntry({ title, subtitle, date, description, link, image }: ListEntryProps) {
+function ListEntry({ title, subtitle, date, description, link, presentation, poster, code, image }: ListEntryProps) {
   const [expanded, setExpanded] = useState(false);
 
   return (
@@ -73,11 +76,28 @@ function ListEntry({ title, subtitle, date, description, link, image }: ListEntr
             ))}
           </ul>
         )}
-        {link && (
-          <a href={link} target="_blank" rel="noopener noreferrer" className="entry-link">
-            Full Publication <ExternalLink size={14} />
-          </a>
-        )}
+        <div className="entry-links-container">
+          {link && (
+            <a href={link} target="_blank" rel="noopener noreferrer" className="entry-link">
+              Full Publication <ExternalLink size={14} />
+            </a>
+          )}
+          {presentation && (
+            <a href={presentation} target="_blank" rel="noopener noreferrer" className="entry-link">
+              Presentation <ExternalLink size={14} />
+            </a>
+          )}
+          {poster && (
+            <a href={poster} target="_blank" rel="noopener noreferrer" className="entry-link">
+              Poster <ExternalLink size={14} />
+            </a>
+          )}
+          {code && (
+            <a href={code} target="_blank" rel="noopener noreferrer" className="entry-link">
+              Source Code <ExternalLink size={14} />
+            </a>
+          )}
+        </div>
       </div>
 
       {image && (
@@ -378,8 +398,10 @@ function App() {
               title="Which is Warmer, the Cake or the Oven? Unlocking Thermal Conductivity for VR Interaction"
               subtitle="Proc. CHI Conference on Human Factors in Computing Systems (CHI '26)"
               date="2026"
-              description={["D. Anuragi, A. Farooq, R. Singh, et al."]}
+              description={["D. Anuragi, A. Farooq, R. Singh, et al.", "Presented as a Demo paper/session in CHI 2026."]}
               link="https://doi.org/10.1145/3772318.3790864"
+              presentation="https://wonderful-cranachan-eff8e8.netlify.app"
+              poster="https://canva.link/hifvuvawzemde56"
               image={`${import.meta.env.BASE_URL}Pictures/CHI paper image.jpg`}
             />
             <ListEntry
@@ -388,6 +410,8 @@ function App() {
               date="2026"
               description={["D. Anuragi, M. Zeeja, and R. Raisamo"]}
               link="https://doi.org/10.1145/3795011.3795031"
+              presentation="https://rad-ganache-9940fc.netlify.app/"
+              code="https://github.com/AslanDevbrat/XRMultimodalFusion"
               image={`${import.meta.env.BASE_URL}Pictures/Augmenting vision with co.png`}
             />
             <ListEntry
@@ -422,6 +446,8 @@ function App() {
               subtitle="Companion of the 2025 ACM Int. Joint Conf. on Pervasive and Ubiquitous Computing (UbiComp '25)"
               date="2025"
               link="https://doi.org/10.1145/3714394.3750591"
+              poster="https://drive.google.com/file/d/1HyKQidU5NuJCarZvvMAcaxmXun1ETGJV/view?usp=sharing"
+              code="https://github.com/DevbratAnuragi/SocialCompassRelease"
               image={`${import.meta.env.BASE_URL}Pictures/Social compass.png`}
             />
             <ListEntry

@@ -392,15 +392,26 @@ body {
   opacity: 0.8;
 }
 
+.entry-links-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
 .entry-link {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  margin-top: 1rem;
   font-size: 0.85rem;
   text-decoration: none;
   font-weight: 700;
   color: var(--color-accent);
+  transition: opacity 0.2s;
+}
+
+.entry-link:hover {
+  opacity: 0.8;
 }
 
 /* Entry Image Expandable */
